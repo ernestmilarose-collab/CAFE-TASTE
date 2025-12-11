@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Taste - Premium Drinks Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F5DEB3;
+            --text-color: #333;
+            --light-bg: #f9f5f0;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-signup {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-signup:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn-order {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-size: 18px;
+            padding: 15px 40px;
+        }
+        
+        .btn-order:hover {
+            background-color: var(--primary-color);
+        }
+        
+        /* Locations Section */
+        .locations {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .locations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .location-card {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .location-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .location-info {
+            padding: 20px;
+        }
+        
+        .location-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        
+        /* Menu Section */
+        .menu {
+            padding: 80px 0;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 25px;
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active,
+        .category-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .item-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .item-info {
+            padding: 20px;
+        }
+        
+        .item-info h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .item-price {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        /* Auth Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-switch {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-switch a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .locations-container,
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-coffee logo-icon"></i>
+                <h1>Café <span>Taste</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#locations">Locations</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login" id="loginBtn">Log In</button>
+                <button class="btn btn-signup" id="signupBtn">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Experience the Perfect Cup</h2>
+            <p>Delivering premium coffee, milk tea, and refreshing drinks right to your doorstep in Cantilan, Madrid, and Carascal, Surigao del Sur.</p>
+            <button class="btn btn-order">Order Now</button>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="locations" id="locations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Delivery Areas</h2>
+                <p>We deliver to these locations in Surigao del Sur</p>
+            </div>
+            <div class="locations-container">
+                <div class="location-card">
+                    <div class="location-img" style="background-image: url('https://mindanews.com/wp-content/uploads/2012/04/28park.jpg');"></div>
+                    <div class="location-info">
+                        <h3>Cantilan, Surigao del Sur</h3>
+                        <p>Experience Café Taste in the historic town of Cantilan. We deliver to all barangays within the municipality.</p>
+                        <p><i class="fas fa-clock"></i> Delivery: 8:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <div class="location-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnIeLgX7KQTvUTDuHwTE6AI9FpsmuwVhZiFw&s');"></div>
+                    <div class="location-info">
+                        <h3>Madrid, Surigao del Sur</h3>
+                        <p>Enjoy our premium beverages in the coastal town of Madrid. We cover all areas within the municipality.</p>
+                        <p><i class="fas fa-clock"></i> Delivery: 8:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <div class="location-img" style="background-image: url('https://lh6.googleusercontent.com/-I8T-dV45x2E/TmNFZ2Zj62I/AAAAAAAAAgs/G_WSUUtbx_Q/s400/010920111970.jpg');"></div>
+                    <div class="location-info">
+                        <h3>Carascal, Surigao del Sur</h3>
+                        <p>Refresh with Café Taste in the beautiful municipality of Carascal. Fast delivery to all barangays.</p>
+                        <p><i class="fas fa-clock"></i> Delivery: 8:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Menu</h2>
+                <p>Discover our wide selection of premium beverages</p>
+            </div>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">All Drinks</button>
+                <button class="category-btn" data-category="coffee">Coffee</button>
+                <button class="category-btn" data-category="milktea">Milk Tea</button>
+                <button class="category-btn" data-category="juice">Fruit Juices</button>
+            </div>
+            <div class="menu-items" id="menuItems">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Log In</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-signup" style="width: 100%;">Log In</button>
+                    <div class="form-switch">
+                        <p>Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+                    </div>
+                </form>
+                
+                <form id="signupForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Delivery Location</label>
+                        <select id="location" class="form-control" required>
+                            <option value="">Select your location</option>
+                            <option value="cantilan">Cantilan, Surigao del Sur</option>
+                            <option value="madrid">Madrid, Surigao del Sur</option>
+                            <option value="carascal">Carascal, Surigao del Sur</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-signup" style="width: 100%;">Create Account</button>
+                    <div class="form-switch">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Log In</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Café Taste</h3>
+                    <p>Premium drinks delivered to your doorstep in Surigao del Sur. Experience the perfect blend of quality and convenience.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Main Branch: Cantilan, Surigao del Sur</p>
+                    <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
+                    <p><i class="fas fa-envelope"></i> info@cafetaste.com</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Delivery Hours</h3>
+                    <p><strong>Monday - Friday:</strong> 8:00 AM - 9:00 PM</p>
+                    <p><strong>Saturday - Sunday:</strong> 8:00 AM - 10:00 PM</p>
+                    <p>We deliver to Cantilan, Madrid, and Carascal, Surigao del Sur</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Café Taste. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data
+        const menuItems = [
+            {
+                id: 1,
+                name: "Caramel Macchiato",
+                category: "coffee",
+                price: 140,
+                image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                description: "Espresso with vanilla-flavored syrup, milk and caramel drizzle"
+            },
+            {
+                id: 2,
+                name: "Classic Milk Tea",
+                category: "milktea",
+                price: 120,
+                image: "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                description: "Classic black tea with milk and chewy tapioca pearls"
+            },
+            {
+                id: 3,
+                name: "Mango Fruit Shake",
+                category: "juice",
+                price: 110,
+                image: "https://veggiedesserts.com/wp-content/uploads/2021/03/mango-shake-5sq.jpg",
+                description: "Fresh mango blended with ice and a touch of sweetness"
+            },
+            {
+                id: 4,
+                name: "Iced Americano",
+                category: "coffee",
+                price: 100,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTUTM10vlIy1VN2NPTjYAuD3MpSoBSY7U3g&s",
+                description: "Rich espresso shots chilled and served over ice"
+            },
+            {
+                id: 5,
+                name: "Wintermelon Milk Tea",
+                category: "milktea",
+                price: 130,
+                image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                description: "Wintermelon tea with creamy milk and chewy pearls"
+            },
+            {
+                id: 6,
+                name: "Strawberry Lemonade",
+                category: "juice",
+                price: 95,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7RT73VWDOdf30GiThmKQG6SXCF3TDIPF1Lw&s",
+                description: "Fresh strawberries blended with zesty lemonade"
+            },
+            {
+                id: 7,
+                name: "Cappuccino",
+                category: "coffee",
+                price: 125,
+                image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                description: "Perfectly balanced espresso with steamed milk foam"
+            },
+            {
+                id: 8,
+                name: "Taro Milk Tea",
+                category: "milktea",
+                price: 135,
+                image: "https://queenbeeboba.com/wp-content/uploads/2020/03/AdobeStock_545717112-1.jpeg",
+                description: "Creamy taro flavor with milk and tapioca pearls"
+            }
+        ];
+
+        // DOM Elements
+        const authModal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const closeModal = document.getElementById('closeModal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuItemsContainer = document.getElementById('menuItems');
+
+        // Display menu items
+        function displayMenuItems(category = 'all') {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.className = 'menu-item';
+                menuItemElement.innerHTML = `
+                    <div class="item-img" style="background-image: url('${item.image}');"></div>
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                        <div class="item-price">₱${item.price.toFixed(2)}</div>
+                        <button class="btn btn-signup" style="padding: 8px 20px;">Add to Order</button>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+        }
+
+        // Initialize menu
+        displayMenuItems();
+
+        // Category filtering
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                // Display filtered items
+                const category = btn.getAttribute('data-category');
+                displayMenuItems(category);
+            });
+        });
+
+        // Auth modal functions
+        function openLoginModal() {
+            authModal.style.display = 'flex';
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            modalTitle.textContent = 'Log In';
+        }
+
+        function openSignupModal() {
+            authModal.style.display = 'flex';
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            modalTitle.textContent = 'Create Account';
+        }
+
+        // Event listeners
+        loginBtn.addEventListener('click', openLoginModal);
+        signupBtn.addEventListener('click', openSignupModal);
+        
+        closeModal.addEventListener('click', () => {
+            authModal.style.display = 'none';
+        });
+        
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            openSignupModal();
+        });
+        
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            openLoginModal();
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // In a real app, you would send this to a server
+            alert(`Login attempt with email: ${email}`);
+            
+            // Reset form and close modal
+            loginForm.reset();
+            authModal.style.display = 'none';
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const location = document.getElementById('location').value;
+            
+            // In a real app, you would send this to a server
+            alert(`Account created for ${fullname} in ${location}. Welcome to Café Taste!`);
+            
+            // Reset form and close modal
+            signupForm.reset();
+            authModal.style.display = 'none';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
